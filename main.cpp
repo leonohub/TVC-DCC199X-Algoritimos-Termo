@@ -12,7 +12,19 @@ void preenchePalavra(char palavraDigitada[], int tam){
     cin.getline(palavraDigitada, tam); 
 }
 
-
+void verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[], int tam){
+    for(int i = 0; i < tam-1; i++) {
+        if (palavraDigitada[i] == palavra[i]){
+            resultado[i] = 'V';
+        } else {
+            for(int j = 0; j < tam; j++) {
+                if (palavraDigitada[i] == palavra[j]) {
+                    resultado[i] = 'L';
+                }
+            }
+        }
+    }
+}
 
 int main() {
     int seed = time(0);
@@ -23,7 +35,10 @@ int main() {
     cout<<palavra;
     char palavraDigitada[TAMANHO_PALAVRA];
     preenchePalavra(palavraDigitada, TAMANHO_PALAVRA);
-    cout << "A palavra digitada é: " << palavraDigitada;
+    
+    char resultado[100] = "PPPPP";
+    verificaIgualdade(palavra, palavraDigitada, resultado, TAMANHO_PALAVRA);
+    cout << resultado;
 
     return 0;
 }
