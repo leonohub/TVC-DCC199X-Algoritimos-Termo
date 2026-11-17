@@ -8,6 +8,24 @@
 
 using namespace std;
 
+bool verificaValidadePalavra(char entrada[], int tam)
+{
+    if (strlen(entrada) != tam - 1)
+    {
+        cout << "A palavra deve conter 5 caracteres" << endl;
+        return false;
+    }
+    for (int i = 0; i < tam - 1; i++)
+    {
+        if (!((entrada[i] >= 'a' && entrada[i] <= 'z') || (entrada[i] >= 'A' && entrada[i] <= 'Z')))
+        {
+            cout << "A palavra deve conter somente letras" << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 void preenchePalavra(char palavraDigitada[], int tam)
 {
 
@@ -15,16 +33,13 @@ void preenchePalavra(char palavraDigitada[], int tam)
 
     cout << "Digite a palavra: " << endl;
     cin.getline(entrada, 100);
+    bool palavraValida = verificaValidadePalavra(entrada, tam);
 
-    if (strlen(entrada) != tam - 1)
+    while (!palavraValida)
     {
-        cout << "A palavra deve conter 5 caracteres";
-    }
-
-    while (strlen(entrada) != tam - 1)
-    {
-        cout << "Digite novamente: " << endl;
+        cout << "Digite a palavra: " << endl;
         cin.getline(entrada, 100);
+        palavraValida = verificaValidadePalavra(entrada, tam);
     }
 
     for (int i = 0; i < tam; i++)
