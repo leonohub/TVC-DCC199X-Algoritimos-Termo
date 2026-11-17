@@ -36,7 +36,7 @@ void verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[],
         } else {
             for(int j = 0; j < tam; j++) {
                 if (palavraDigitada[i] == palavra[j]) {
-                    resultado[i] = 'L';
+                    resultado[i] = 'A';
                 }
             }
         }
@@ -53,7 +53,7 @@ int main() {
     char palavraDigitada[TAMANHO_PALAVRA];
     preenchePalavra(palavraDigitada, TAMANHO_PALAVRA);
     
-    char resultado[100] = "PPPPP";
+    char resultado[100] = "XXXXX";
     verificaIgualdade(palavra, palavraDigitada, resultado, TAMANHO_PALAVRA);
     cout << resultado;
 
