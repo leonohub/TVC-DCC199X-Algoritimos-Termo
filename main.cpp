@@ -2,14 +2,31 @@
 #include "sorteiaPalavra.hpp"
 #include <ctime>
 #include <cstdlib>
+#include <cstring>
 
 #define TAMANHO_PALAVRA 6 //5 letras + \0
 
 using namespace std;
 
 void preenchePalavra(char palavraDigitada[], int tam){
+
+    char entrada[100];
+
     cout << "Digite a palavra: " << endl;
-    cin.getline(palavraDigitada, tam); 
+    cin.getline(entrada, 100);
+
+    if (strlen(entrada) != tam - 1) {
+        cout << "A palavra deve conter 5 caracteres";
+    }
+
+    while(strlen(entrada) != tam - 1){
+        cout << "Digite novamente: " << endl;
+        cin.getline(entrada, 100);
+    }
+    
+    for (int i = 0; i < tam; i++){
+        palavraDigitada[i] = entrada[i];
+    }
 }
 
 void verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[], int tam){
