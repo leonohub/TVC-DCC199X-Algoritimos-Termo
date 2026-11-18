@@ -5,6 +5,7 @@
 #include <cstring>
 
 #define TAMANHO_PALAVRA 6 // 5 letras + \0
+#define TENTATIVAS_MAX 6 // de acordo com o termo normal kkk são 6 tentativas e aumenta em 1 com o aumento de palavras | dueto são 7...
 
 using namespace std;
 
@@ -28,7 +29,6 @@ bool verificaValidadePalavra(char entrada[], int tam)
 
 void preenchePalavra(char palavraDigitada[], int tam)
 {
-
     char entrada[100];
 
     cout << "Digite a palavra: " << endl;
@@ -48,13 +48,20 @@ void preenchePalavra(char palavraDigitada[], int tam)
     }
 }
 
-void verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[], int tam)
-{
-    for (int i = 0; i < tam - 1; i++)
-    {
+void limpaString (char string[], int tam){
+    for(int i = 0; i < tam - 1 ; i++) {
+        string[i] = 'X';
+    }
+}
+
+int verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[], int tam){
+    int letrasPosCerta = 0;
+    limpaString(resultado, tam);
+    for (int i = 0; i < tam - 1; i++)    {
         if (palavraDigitada[i] == palavra[i])
         {
             resultado[i] = 'V';
+            letrasPosCerta++;
         }
         else
         {
@@ -67,6 +74,7 @@ void verificaIgualdade(char palavra[], char palavraDigitada[], char resultado[],
             }
         }
     }
+    return letrasPosCerta;
 }
 
 int main()
@@ -77,42 +85,19 @@ int main()
     char palavra[TAMANHO_PALAVRA];
     sorteiaPalavra(palavra, TAMANHO_PALAVRA);
     cout << palavra;
+
     char palavraDigitada[TAMANHO_PALAVRA];
-
-    preenchePalavra(palavraDigitada, TAMANHO_PALAVRA);
-
-    char resultado[100] = "XXXXX";
-    verificaIgualdade(palavra, palavraDigitada, resultado, TAMANHO_PALAVRA);
-    cout << resultado;
-
-    int a = 0;
-
-    for (int i = 0; i < 5; i++)
-    {
-        if (resultado[i] == 'V')
-        {
-            a++;
+    char resultado[TAMANHO_PALAVRA];
+    
+    for (int tentativas = 0; tentativas < TENTATIVAS_MAX; tentativas++){
+        cout << resultado << endl;
+        preenchePalavra(palavraDigitada, TAMANHO_PALAVRA);
+        int letrasPosCerta = verificaIgualdade(palavra, palavraDigitada, resultado, TAMANHO_PALAVRA);
+        cout << resultado << endl;
+        if (letrasPosCerta == TAMANHO_PALAVRA - 1) {
+            cout << "venceu";
+            break;
         }
     }
-    for (int i = 0; i < 4; i++)
-    {
-        if (a != 5)
-        {
-            preenchePalavra(palavraDigitada, TAMANHO_PALAVRA);
-
-            char resultado[100] = "XXXXX";
-            verificaIgualdade(palavra, palavraDigitada, resultado, TAMANHO_PALAVRA);
-            cout << resultado;
-            a = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (resultado[i] == 'V')
-                {
-                    a++;
-                }
-            }
-        }
-    }
-
     return 0;
 }
